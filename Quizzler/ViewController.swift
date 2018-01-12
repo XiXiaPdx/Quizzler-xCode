@@ -42,6 +42,10 @@ class ViewController: UIViewController {
     
     func nextQuestion() {
         currentQuestion += 1
+        print(allQuestions.list.count)
+        if currentQuestion == allQuestions.list.count{
+            startOver()
+        }
         currentQuestionText = allQuestions.list[currentQuestion].questionText
     }
     
@@ -64,7 +68,8 @@ class ViewController: UIViewController {
     
     
     func startOver() {
-       
+       currentQuestion = 0
+       currentScore = 0
     }
     
 }

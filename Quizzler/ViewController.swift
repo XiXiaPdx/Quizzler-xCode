@@ -42,11 +42,16 @@ class ViewController: UIViewController {
     
     func nextQuestion() {
         currentQuestion += 1
-        print(allQuestions.list.count)
         if currentQuestion == allQuestions.list.count{
-            startOver()
-        }
+            let restartAction: UIAlertAction = UIAlertAction(title: "Restart Quiz", style: .default, handler: {
+                (UIAlertAction) in self.startOver()
+            } )
+            let alert: UIAlertController = UIAlertController (title: "You're Done!", message: "Start over?", preferredStyle: .alert)
+                alert.addAction(restartAction)
+            present(alert, animated: true, completion: nil)
+        } else {
         currentQuestionText = allQuestions.list[currentQuestion].questionText
+        }
     }
     
     
@@ -68,8 +73,10 @@ class ViewController: UIViewController {
     
     
     func startOver() {
-       currentQuestion = 0
+       currentQuestion = -1
        currentScore = 0
+       nextQuestion()
+       updateUI()
     }
     
 }

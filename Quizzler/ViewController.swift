@@ -13,7 +13,6 @@ class ViewController: UIViewController {
     
     //Place your instance variables here
     
-    
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet var progressBar: UIView!
@@ -26,18 +25,21 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         nextQuestion()
-        updateUI()
     }
 
     @IBAction func answerPressed(_ sender: AnyObject) {
         checkAnswer(ofAnswerChoice:sender.tag)
         nextQuestion()
-        updateUI()
     }
     
     func updateUI() {
-      questionLabel.text = currentQuestionText
-        scoreLabel.text = "\(currentScore)"
+        questionLabel.text = currentQuestionText
+        scoreLabel.text = "Score: \(currentScore)"
+        progressLabel.text = "Question \(currentQuestion+1) of \(allQuestions.list.count)"
+        let screenWidth: CGFloat = view.frame.size.width
+        let barWidth: CGFloat = screenWidth/CGFloat(allQuestions.list.count)*CGFloat(currentQuestion+1)
+        print(barWidth)
+        progressBar.frame.size.width = barWidth
     }
     
     func nextQuestion() {
@@ -51,6 +53,7 @@ class ViewController: UIViewController {
             present(alert, animated: true, completion: nil)
         } else {
         currentQuestionText = allQuestions.list[currentQuestion].questionText
+            updateUI()
         }
     }
     
@@ -65,9 +68,8 @@ class ViewController: UIViewController {
         }
         
         if trueFalse ==  allQuestions.list[currentQuestion].answer {
-            print("Correct")
+            currentScore += 100
         } else {
-            print ("Incorrect")
         }
     }
     
@@ -76,7 +78,5 @@ class ViewController: UIViewController {
        currentQuestion = -1
        currentScore = 0
        nextQuestion()
-       updateUI()
     }
-    
 }

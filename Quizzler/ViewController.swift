@@ -63,7 +63,9 @@ class ViewController: UIViewController {
         switch answerChoice{
         case 1:
             trueFalse = true
+            ProgressHUD.showSuccess("Correct!")
         default:
+            ProgressHUD.showError("Incorrect!")
             trueFalse = false
         }
         
